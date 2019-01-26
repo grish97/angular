@@ -40,7 +40,7 @@ APP.config(function($stateProvider) {
             url : '/verify/:token',
             views : {
                 'content@' : {
-                    controller : 'AuthVerifyController'
+                    controller : 'AuthVerificationController'
                 }
             }
         });

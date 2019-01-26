@@ -53,13 +53,13 @@ APP.factory('errorInterceptors', ['$injector', function($injector) {
                 errorText += item.join('<br/>') + '<br/>';
             });
 
-            toastr.error(errorText);
+            toastr.errors(errorText);
         }
 
         throw response;
     };
     return service;
 }]);
-APP.config('$httpProvider', function($httpProvider) {
+APP.config(['$httpProvider', function($httpProvider) {
     $httpProvider.interceptors.push('errorInterceptors');
-});
+}]);

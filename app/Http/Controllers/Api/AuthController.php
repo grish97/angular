@@ -27,7 +27,7 @@ class AuthController extends Controller
      */
     public function register(RegisterRequest $request)
     {
-        $token = base64_encode(strlen(140));
+        $token = base64_encode(str_random(140));
         $user =  User::query()->create([
             'name' => $request->name,
             'last_name' => $request->last_name,
