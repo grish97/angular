@@ -4,8 +4,8 @@ APP.config(["$locationProvider", function($locationProvider) {
     $locationProvider.html5Mode(true);
 }]);
 
-APP.config(function Config(toastrConfig,jwtOptionsProvider,$httpProvider) {
-
+APP.config(function Config(toastrConfig, jwtOptionsProvider, $httpProvider) {
+ 
     angular.extend(toastrConfig, {
         allowHtml: true,
         closeButton: true,
@@ -16,7 +16,7 @@ APP.config(function Config(toastrConfig,jwtOptionsProvider,$httpProvider) {
     });
 
     jwtOptionsProvider.config({
-        unauthenticatedRedirectPath : '/login',
+        // unauthenticatedRedirectPath : '/login',
         tokenGetter : [function() {
             return localStorage.getItem('api_token')
         }]
@@ -25,10 +25,12 @@ APP.config(function Config(toastrConfig,jwtOptionsProvider,$httpProvider) {
     $httpProvider.interceptors.push('jwtInterceptor');
 });
 APP.run(function ($rootScope, $state, authManager, $transitions) {
+    console.log($transitions);
     authManager.checkAuthOnRefresh();
     authManager.redirectWhenUnauthenticated();
 
     $rootScope.$on('tokenHasExpired', function() {
+        localStorage.removeItem('api_token');
         alert('Your token is expired.');
     });
 

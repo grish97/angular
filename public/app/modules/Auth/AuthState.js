@@ -7,7 +7,10 @@ APP.config(function($stateProvider) {
                     templateUrl : '/app/modules/Auth/views/login.html',
                     controller :'AuthLoginController'
                 }
-                }
+            },
+            data: {
+                requiresLogin: false
+            }
         })
         .state('register', {
             url : '/register',
@@ -15,7 +18,10 @@ APP.config(function($stateProvider) {
             'content@' : {
                 templateUrl : '/app/modules/Auth/views/register.html',
                 controller : 'AuthRegisterController'
-        }
+                }
+            },
+             data: {
+                requiresLogin: false
             }
         })
         .state('reset', {
@@ -26,15 +32,21 @@ APP.config(function($stateProvider) {
                     controller : "AuthResetController"
                 }
             },
+             data: {
+                 requiresLogin: false
+             }
         })
         .state('forgot', {
-            url : '/forgot',
+            url  : '/forgot',
             views : {
-                'content@' : {
+                "content@" : {
                     templateUrl : '/app/modules/Auth/views/forgot.html',
                     controller : 'AuthForgotController'
                 }
-                }
+            },
+            data: {
+                requiresLogin: false
+            }
         })
         .state('verify', {
             url : '/verify/:token',
@@ -42,7 +54,9 @@ APP.config(function($stateProvider) {
                 'content@' : {
                     controller : 'AuthVerificationController'
                 }
+            },
+             data: {
+                requiresLogin: false
             }
-        });
-
+        })
 });
