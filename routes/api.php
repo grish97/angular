@@ -26,5 +26,5 @@ Route::group([
     Route::post('register', 'AuthController@register');
     Route::post('verify', 'AuthController@verify');
     Route::post('reset', 'AuthController@reset');
-    Route::post('setPassword', 'AuthController@setPassword');
+    Route::post('set-password', 'AuthController@setPassword');
 });

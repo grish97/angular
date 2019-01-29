@@ -36,7 +36,7 @@ APP.controller('AuthRegisterController', function($scope, AuthService,toastr) {
 APP.controller('AuthResetController', function ($stateParams,$scope,AuthService,toastr,$state) {
     $scope.user = {
         password : null,
-        confirm_password : null,
+       password_confirmation : null,
         token : $stateParams.token
     };
 
@@ -44,16 +44,20 @@ APP.controller('AuthResetController', function ($stateParams,$scope,AuthService,
         AuthService.setPassword($scope.user, (res) => {
             $scope.email = null;
             toastr.success('Successfully Reset.')
+            $state.go('login')
         }, (err) => toastr.error('Error'));
     };
 });
 
 APP.controller('AuthForgotController', function ($scope,$stateParams,AuthService,toastr,$state) {
    $scope.email = null;
-   AuthService.reset({email : $scope.email},(res) =>  {
-      $scope.email = null;
-      toastr.success('Email Send!');
-   }, (err) => console.log(err));
+
+   $scope.reset = function () {
+       AuthService.reset({email : $scope.email},(res) =>  {
+           $scope.email = null;
+           toastr.success('Email Send!');
+       }, (err) => console.error(err));
+   }
 });
 
 APP.controller('AuthVerificationController', function($stateParams,AuthService,toastr,$state) {

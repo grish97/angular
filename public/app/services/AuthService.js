@@ -16,7 +16,7 @@ APP.factory('AuthService', ['$resource', function ($resource) {
              skipAuthorization: true
         },
         setPassword : {
-            url : '/api/auth/set-password',\
+            url : '/api/auth/set-password',
             method : 'POST',
             skipAuthorization : true
         },

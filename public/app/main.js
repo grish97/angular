@@ -16,7 +16,7 @@ APP.config(function Config(toastrConfig, jwtOptionsProvider, $httpProvider) {
     });
 
     jwtOptionsProvider.config({
-        // unauthenticatedRedirectPath : '/login',
+        unauthenticatedRedirectPath : '/login',
         tokenGetter : [function() {
             return localStorage.getItem('api_token')
         }]
@@ -25,7 +25,6 @@ APP.config(function Config(toastrConfig, jwtOptionsProvider, $httpProvider) {
     $httpProvider.interceptors.push('jwtInterceptor');
 });
 APP.run(function ($rootScope, $state, authManager, $transitions) {
-    console.log($transitions);
     authManager.checkAuthOnRefresh();
     authManager.redirectWhenUnauthenticated();
 
@@ -52,16 +51,16 @@ APP.factory('errorInterceptors', ['$injector', function($injector) {
             let toastr = $injector.get('toastr');
             let errorText = '';
             Object.values(response.data.errors).map(function(item) {
-                errorText += item.join('<br/>') + '<br/>';
+                errorText += item.join('<br>') + '<br>';
             });
 
-            toastr.errors(errorText);
+            toastr.error(errorText);
         }
-
         throw response;
     };
     return service;
 }]);
+
 APP.config(['$httpProvider', function($httpProvider) {
     $httpProvider.interceptors.push('errorInterceptors');
 }]);

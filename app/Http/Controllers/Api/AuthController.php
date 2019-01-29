@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\RegisterRequest;
+use App\Mail\ResetMail;
 use App\Mail\VerificationEmail;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-use Tymon\JWTAuth\Providers\LaravelServiceProvider;
 
 
 class AuthController extends Controller
@@ -69,23 +70,24 @@ class AuthController extends Controller
      */
 
     public function reset(Request $request) {
-       $this->validate($request, [
-            'email' => 'required|min:8|max:60|exists:user,email'
-       ]);
+        $this->validate($request,[
+            'email' => 'required|min:8|max:60|exists:users,email'
+        ]);
 
        $token = str_random(100);
        $email = $request->input("email");
-
-       DB::table('password_reset')->updateOrInsert([
+       DB::table('password_resets')->updateOrInsert([
             'email' => $email,
        ], [
             'email' => $email,
             'token' => $token,
-            'created_at' => Carbon::now();
+            'created_at' => Carbon::now()
        ]);
+       $user = User::query()
+            ->whereEmail($email)
+            ->first();
 
-       $user = User::query()->whereEmail($email)->first();
-       Mail::to($user)->queue(new ResetEmail($user,$token));
+       Mail::to($user)->queue(new ResetMail($user,$token));
 
        return response()->json(['message' => 'success'],201);
     }
@@ -97,13 +99,13 @@ class AuthController extends Controller
 
     public function setPassword(Request $request) {
         $this->validate($request, [
-            'password' => 'required|min:6|max:30|string|confirmed'
-            'token' => 'required|string|exists:password_reset,token'
+            'password' => 'required|min:2|max:30|string|confirmed',
+            'token' => 'required|string|exists:password_resets,token'
         ]);
 
-        $info = DB::table('password_reset')->
-                ->where('token' = $request->input('token'));
-        $inforFirst = $info->first();
+        $info = DB::table('password_resets')
+                ->where('token', '=', $request->input('token'));
+        $infoFirst = $info->first();
 
         User::query()
             ->whereEmail($infoFirst->email)
@@ -151,10 +153,6 @@ class AuthController extends Controller
         auth()->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
-    }
-
-    public function ver() {
-        dd('hello');
     }
 
     /**

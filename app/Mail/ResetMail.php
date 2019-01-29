@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ForgotMail extends Mailable
+class ResetMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -32,6 +32,6 @@ class ForgotMail extends Mailable
      */
     public function build()
     {
-        return $this->view('email.forgot',['user' => $this->_user, 'token' => $this->_token]);
+        return $this->view('email.reset', ['user' => $this->_user, 'token' => $this->_token]);
     }
 }
