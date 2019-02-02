@@ -1,2 +1,2 @@
 <?php
-include public_path() . '/app/app.html';
+include public_path().'/app/app.html';

@@ -14,12 +14,13 @@ class ResetMail extends Mailable
     private $_user;
     private $_token;
 
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($user,$token)
+    public function __construct($user, $token)
     {
         $this->_user = $user;
         $this->_token = $token;
@@ -32,6 +33,6 @@ class ResetMail extends Mailable
      */
     public function build()
     {
-        return $this->view('email.reset', ['user' => $this->_user, 'token' => $this->_token]);
+        return $this->view('emails.reset', ['user' => $this->_user, 'token' => $this->_token]);
     }
 }

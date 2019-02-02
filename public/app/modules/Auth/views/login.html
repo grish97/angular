@@ -6,12 +6,12 @@
                     <h5 class="card-title text-center">Sign In</h5>
                     <form class="form-signin" ng-submit="login()">
                         <div class="form-label-group">
-                            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" ng-model="user.email" autofocus>
+                            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus ng-model="user.email">
                             <label for="inputEmail">Email address</label>
                         </div>
 
                         <div class="form-label-group">
-                            <input type="password" id="inputPassword" class="form-control" placeholder="Password" ng-model="user.password">
+                            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required ng-model="user.password">
                             <label for="inputPassword">Password</label>
                         </div>
 

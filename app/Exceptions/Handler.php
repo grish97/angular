@@ -44,14 +44,12 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $exception)
+    public function render($request, Exception $e)
     {
-        if ($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException)
+        if ($e instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException)
         {
             return response()->view('welcome');
         }
-
-        return parent::render($request, $exception);
+        return parent::render($request, $e);
     }
-
 }

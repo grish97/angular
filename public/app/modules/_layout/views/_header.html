@@ -1,30 +1,33 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" ui-sref="/">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
+    <a class="navbar-brand" ui-sref="/" >Shop</a>
+
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item">
-                <a ui-sref="/" class="nav-link">Home</a>
+            <li class="nav-item active">
+                <a class="nav-link" ui-sref="/" ui-sref-active="'active'">Home</a>
             </li>
             <li class="nav-item">
-                <a ui-sref="/" class="nav-link">Product</a>
-            </li>
-        </ul>
-
-        <ul class="navbar-nav " ng-if="!isAuthenticated">
-            <li class="nav-item">
-                <a class="nav-link" ui-sref="login">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" ui-sref="register">Register</a>
+                <a class="nav-link" ui-sref="products" ui-sref-active="'active'">Products</a>
             </li>
         </ul>
 
-        <ul class="navbar-nav " ng-if="isAuthenticated">
-            <li class="nav-item">
-                <a href="#" class="nav-link" ng-click="logout($event)">Log out</a>
+        <ul class="navbar-nav mt-2 mt-lg-0" ng-if="!isAuthenticated">
+            <li class="nav-item active">
+                <a class="nav-link" ui-sref="admin" ui-sref-active="'active'">Admin </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" ui-sref="login">Login </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" ui-sref="register">Register </a>
+            </li>
+        </ul>
+        <ul ng-if="isAuthenticated" class="navbar-nav mt-2 mt-lg-0">
+            <li class="nav-item active">
+                <a class="nav-link btn btn-info text-white" href="#" ng-click="logout($event)">Log Out</a>
             </li>
         </ul>
     </div>

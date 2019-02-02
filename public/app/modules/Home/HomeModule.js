@@ -1,3 +1,3 @@
-APP.controller('HomeIndexController', function() {
-    
+APP.controller('HomeIndexController', function () {
+
 });

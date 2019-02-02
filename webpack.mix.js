@@ -18,13 +18,14 @@ mix.js('resources/js/app.js', 'public/js')
         './node_modules/angular-resource/angular-resource.js',
         './node_modules/angular-jwt/dist/angular-jwt.js',
         './node_modules/angular-animate/angular-animate.js',
+        './node_modules/ng-file-upload/dist/ng-file-upload.js',
         './node_modules/angular-toastr/dist/angular-toastr.tpls.js',
     ], 'public/js/angular.js')
     .babel([
         'public/app/main.js',
         'public/app/services/*Service.js',
         'public/app/modules/**/*Module.js',
-        'public/app/modules/**/*State.js'
+        'public/app/modules/**/*State.js',
     ], 'public/js/main.js')
     .sass('resources/sass/app.scss', 'public/css')
     .version();

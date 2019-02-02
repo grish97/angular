@@ -12,6 +12,7 @@ class VerificationEmail extends Mailable
     use Queueable, SerializesModels;
 
     private $_user;
+
     /**
      * Create a new message instance.
      *
@@ -29,6 +30,6 @@ class VerificationEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('email.verification',['user'=>$this->_user]);
+        return $this->view('emails.verification', ['user' => $this->_user]);
     }
 }

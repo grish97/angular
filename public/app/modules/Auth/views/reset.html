@@ -6,17 +6,17 @@
                     <h5 class="card-title text-center">Reset Password</h5>
                     <form class="form-signin" ng-submit="reset()">
                         <div class="form-label-group">
-                            <input type="password" id="inputPassword" class="form-control" placeholder="Password" ng-model="user.password">
-                            <label for="inputPassword">Password</label>
+                            <input type="password" id="inputPass" class="form-control" placeholder="Password" required autofocus ng-model="user.password">
+                            <label for="inputPass">Password</label>
                         </div>
-
                         <div class="form-label-group">
-                            <input type="password" id="inputPasswordConfirmation" class="form-control" placeholder="Password" ng-model="user.password_confirmation">
-                            <label for="inputPasswordConfirmation">Confirmation Password</label>
+                            <input type="password" id="inputPassConfirm" class="form-control" placeholder="Password" required autofocus ng-model="user.password_confirmation">
+                            <label for="inputPassConfirm">Password Confirmation</label>
                         </div>
-
                         <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Reset</button>
                     </form>
+
+                    <p class="mt-3 text-center"><a ui-sref="login">Do you have an account?</a></p>
                 </div>
             </div>
         </div>

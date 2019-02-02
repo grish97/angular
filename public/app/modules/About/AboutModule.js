@@ -1,3 +1,3 @@
-APP.controller('AboutIndexController', function() {
+APP.controller('AboutIndexController', function () {
 
 });
