@@ -10,7 +10,14 @@ APP.config(function ($stateProvider) {
                 'content@': {
                     templateUrl: "/app/modules/Home/views/index.html",
                     controller: "HomeIndexController"
+                },
+                'footer@' : {
+                    templateUrl : "/app/modules/_layout/views/_footer.html",
+                    controller : "FooterController"
                 }
+            },
+            data : {
+                requiresLogin : true,
             }
         })
-})
+});

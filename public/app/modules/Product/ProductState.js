@@ -11,6 +11,10 @@ APP.config(function ($stateProvider) {
                     templateUrl: "/app/modules/Product/views/index.html",
                     controller: "ProductIndexController"
                 }
+            },
+            data: {
+                isAdmin : false,
+                requiresLogin: true
             }
         })
 
@@ -25,6 +29,10 @@ APP.config(function ($stateProvider) {
                     templateUrl: "/app/modules/Product/views/show.html",
                     controller: "ProductShowController"
                 }
+            },
+            data: {
+                isAdmin : false,
+                requiresLogin: true
             }
         })
 
@@ -39,6 +47,10 @@ APP.config(function ($stateProvider) {
                     templateUrl: "/app/modules/Product/views/edit.html",
                     controller: "ProductEditController"
                 }
+            },
+            data: {
+                isAdmin : false,
+                requiresLogin: true
             }
         })
 
@@ -53,6 +65,27 @@ APP.config(function ($stateProvider) {
                     templateUrl: "/app/modules/Product/views/delete.html",
                     controller: "ProductDeleteController"
                 }
+            },
+            data: {
+                isAdmin : false,
+                requiresLogin: true
+            }
+        })
+        .state('my_product', {
+            url : '/myProduct',
+            views : {
+                 'header@' : {
+                    templateUrl: "/app/modules/_layout/views/_header.html",
+                    controller: "HeaderController"
+                },
+                'content@': {
+                    templateUrl: "/app/modules/Product/views/myProduct.html",
+                    controller: "MyProductController"
+                }
+            },
+            data : {
+                isAdmin : false,
+                requiresLogin : true
             }
         })
 })

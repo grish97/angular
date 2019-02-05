@@ -1,0 +1,25 @@
+<div class="float-right w-75 ">
+    <h3 class="font-weight-bold mt-4">Users</h3>
+    <button class="btn btn-warning" ui-sref="users.edit({id : 0})">Create</button>
+    <table class="table mt-5">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Edit/Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="user in users">
+            <th scope="row">{{user.id}}</th>
+            <td>{{user.name}}</td>
+            <td>{{user.email}}</td>
+            <td>
+                <a ui-sref="users.edit({id : user.id})"  class="btn mr-5"><i class="fas fa-user-edit text-success"></i></a>
+                <a ui-sref="users.delete({id : user.id})" class="btn"><i class="fas fa-user-minus  text-danger"></i></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

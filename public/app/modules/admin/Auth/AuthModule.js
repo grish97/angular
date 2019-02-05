@@ -1,5 +1,5 @@
 APP.controller('AdminAuthController',function($scope,$stateParams,toastr,AuthService,$state) {
-    $scope.amdin = {
+    $scope.admin = {
         email : null,
         password : null,
     };

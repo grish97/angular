@@ -1,0 +1,41 @@
+<div class="float-right w-75 ">
+    <h3 class="font-weight-bold mt-4">Products</h3>
+    <button class="btn btn-warning" ui-sref="product_edit({slug : 0})">Create</button>
+    <table class="table mt-5">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Short Desc.</th>
+            <th scope="col">Price</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="product in products">
+            <th scope="row">{{product.id}}</th>
+            <th>{{product.name}}</th>
+            <td>{{product.short_description.substr(0,10)}}</td>
+            <td>{{product.price}}</td>
+            <td>
+                <a ui-sref="product_edit({slug : product.slug})"  class="btn mr-3"><i class="far fa-edit text-success"></i></a>
+                <a ui-sref="product_delete({slug : product.slug})" class="btn mr-3"><i class="far fa-trash-alt text-danger"></i></a>
+                <a ui-sref="product_show({slug : product.slug})" class="btn"><i class="far fa-eye text-info"></i></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <nav aria-label="Page navigation example" class="mt-5">
+        <ul class="pagination">
+            <li class="page-item"
+                ng-repeat="(key, page) in pagination.last_page track by key"
+                ng-class='(key + 1) == pagination.currentPage ? "active" : "" ' >
+
+                <a class="page-link ac"
+                   href="#"
+                   ng-click="getProducts((key + 1))">{{key + 1}}</a>
+            </li>
+        </ul>
+    </nav>
+</div>

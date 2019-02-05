@@ -1,39 +1,38 @@
-<div class="bg-white p-5">
+<div class="bg-white p-5 mt-4 container">
     <h2 class="mb-5">
         All Products
         <a class="btn btn-warning" ui-sref="products.edit({slug : 0})">Create +</a>
     </h2>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col" width="20%">Name</th>
-            <th scope="col" width="20%">Short Descr.</th>
-            <th scope="col" width="20%">Price</th>
-            <th scope="col" class="text-right">Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="product in products">
-            <th scope="row">{{ product.id }}</th>
-            <td>{{ product.name }}</td>
-            <td>{{ product.short_description.substr(0, 10) }}</td>
-            <td>{{ product.price }}</td>
-            <td class="text-right">
-                <a class="btn btn-danger" ui-sref="products.delete({slug : product.slug})">DELETE</a>
-                <a class="btn btn-success" ui-sref="products.edit({slug : product.slug})">EDIT</a>
-                <a class="btn btn-info text-white" ui-sref="products.show({slug : product.slug})">SHOW</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
 
-    <nav aria-label="Page navigation example">
+        <div class="col-md-3 col-xs-6 d-inline-block mb-5"  ng-repeat="product in products">
+            <div class="product">
+                <div class="product-img">
+                    <img src="/images/default.jpg"  alt="">
+                </div>
+                <div class="product-body">
+                    <h3 class="product-name"><a href="#">{{product.name}}</a></h3>
+                    <p class="product-category">{{ product.short_description.substr(0, 50) }}</p>
+                    <h4 class="product-price">$ {{ product.price  }} <del class="product-old-price"> $990.00</del></h4>
+                    <div class="product-btns">
+                        <button class="add-to-wishlist" style="outline:none"><i class="far fa-heart" ng-click="wish($event)"></i><span class="tooltipp">add to wishlist</span></button>
+                        <button class="add-to-compare" ui-sref="products.edit({slug : product.slug})"><i class="far fa-edit"></i><span class="tooltipp">Edit</span></button>
+                        <button class="quick-view" ui-sref="products.show({slug : product.slug})"><i class="fa fa-eye"></i><span class="tooltipp">Show</span></button>
+                        <button class="add-to-compare" ui-sref="products.delete({slug : product.slug})"><i class="far fa-trash-alt "></i><span class="tooltipp">Delete</span></button>
+                        
+                    </div>
+                </div>
+                <div class="add-to-cart">
+                    <button class="add-to-cart-btn" ng-click="addToCard($event)"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                </div>
+            </div>
+        </div>
+
+    <nav aria-label="Page navigation example" class="mt-5">
         <ul class="pagination">
             <li class="page-item"
                 ng-repeat="(key, page) in pagination.last_page track by key"
-                ng-class='(key + 1) == pagination.currentPage ? "active" : "" '
-            >
+                ng-class='(key + 1) == pagination.currentPage ? "active" : "" ' >
+
                 <a class="page-link ac"
                    href="#"
                    ng-click="getProducts((key + 1))">{{key + 1}}</a>
@@ -41,3 +40,4 @@
         </ul>
     </nav>
 </div>
+

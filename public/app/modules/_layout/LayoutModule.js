@@ -5,3 +5,5 @@ APP.controller('HeaderController', function ($scope, $state, authManager) {
         authManager.unauthenticate();
     }
 });
+
+

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\RegisterRequest;
@@ -14,7 +13,6 @@ use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
-
     /**
      * AuthController constructor.
      */
@@ -22,7 +20,6 @@ class AuthController extends Controller
     {
         $this->middleware('auth:api', ['except' => ['login', 'register', 'reset', 'verify','setPassword',"adminLogin"]]);
     }
-
     /**
      * @param RegisterRequest $request
      * @return \Illuminate\Http\JsonResponse
@@ -33,16 +30,12 @@ class AuthController extends Controller
         $user = User::query()->create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->passsword),
+            'password' => bcrypt($request->password),
             'verification_token' => $token
         ]);
-
         Mail::to($user)->queue(new VerificationEmail($user));
-
         return response()->json(['message' => 'success'], 201);
     }
-
-
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
@@ -53,16 +46,13 @@ class AuthController extends Controller
         $this->validate($request, [
             'token' => 'required|exists:users,verification_token'
         ]);
-
         User::query()->whereVerificationToken($request->token)
             ->update([
                 'verification_token' => null,
                 'email_verified_at' => Carbon::now()
             ]);
-
         return response()->json(['success' => true], 204);
     }
-
     /**
      * Get a JWT via given credentials.
      *
@@ -71,14 +61,11 @@ class AuthController extends Controller
     public function login()
     {
         $credentials = request(['email', 'password']);
-
         if (! $token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
-
         return $this->respondWithToken($token);
     }
-
     /**
      * Get the authenticated User.
      *
@@ -88,7 +75,6 @@ class AuthController extends Controller
     {
         return response()->json(auth()->user());
     }
-
     /**
      * Log the user out (Invalidate the token).
      *
@@ -97,10 +83,8 @@ class AuthController extends Controller
     public function logout()
     {
         auth()->logout();
-
         return response()->json(['message' => 'Successfully logged out']);
     }
-
     /**
      * Refresh a token.
      *
@@ -110,7 +94,6 @@ class AuthController extends Controller
     {
         return $this->respondWithToken(auth()->refresh());
     }
-
     /**
      * Get the token array structure.
      *
@@ -126,8 +109,6 @@ class AuthController extends Controller
             'expires_in' => auth()->factory()->getTTL() * 60
         ]);
     }
-
-
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
@@ -138,10 +119,8 @@ class AuthController extends Controller
         $this->validate($request, [
             'email' => 'required|email|max:60|string|exists:users,email'
         ]);
-
         $token = str_random(100);
         $email = $request->input('email');
-
         DB::table('password_resets')->updateOrInsert([
             'email' => $email,
         ], [
@@ -149,16 +128,12 @@ class AuthController extends Controller
             'token' => $token,
             'created_at' => Carbon::now()
         ]);
-
         $user = User::query()
             ->whereEmail($email)
             ->first();
-
         Mail::to($email)->queue(new ResetMail($user, $token));
-
         return response()->json(['message' => 'success'], 201);
     }
-
     /**
      * @param Request $request
      * @throws \Illuminate\Validation\ValidationException
@@ -169,29 +144,21 @@ class AuthController extends Controller
             'token' => 'required|string|exists:password_resets,token',
             'password' => 'required|string|confirmed|min:6'
         ]);
-
         $info = DB::table('password_resets')
             ->where('token', '=', $request->input('token'));
-
         $infoFirst = $info->first();
-
         User::query()
             ->whereEmail($infoFirst->email)
             ->update(['password' => bcrypt($request->password)]);
-
         $info->delete();
-
         return response()->json(['message' => 'success'], 201);
     }
-
     public function adminLogin(Request $request) {
         $credentials = request(['email', 'password']);
         $credentials = $credentials + ['is_admin' => true];
-
         if (! $token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
-
         return $this->respondWithToken($token);
     }
 }

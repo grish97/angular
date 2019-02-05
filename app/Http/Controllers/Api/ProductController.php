@@ -19,12 +19,12 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $data = Product::query()
-            ->select('id', 'name', 'slug', 'price', 'short_description')
+        $data = Product::query()->select(
+            'id', 'name', 'slug', 'price', 'short_description')
             ->orderBy('name', 'ASC')
             ->paginate(20);
-
-        return response()->json(['products' => $data]);
+        $count = $data->count();
+        return response()->json(['products' => $data, 'count' => $count]);
     }
 
     /**

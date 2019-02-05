@@ -19,7 +19,7 @@ APP.config(function Config(toastrConfig, jwtOptionsProvider, $httpProvider) {
     jwtOptionsProvider.config({
         unauthenticatedRedirectPath: '/login',
         tokenGetter: ['options', function(options) {
-            if (options && options.url.indexOf('/admin') > -1) {
+            if (options && options.url.indexOf('admin') > -1) {
                 return localStorage.getItem('api_admin_token');
             } else {
                 return localStorage.getItem('api_token');

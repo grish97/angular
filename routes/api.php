@@ -34,10 +34,21 @@ Route::group([
 
 
 Route::group([
-    'middleware' => 'auth:api'
+    'middleware' => 'auth:api',
 ], function () {
     Route::resource('products', 'ProductController');
     Route::post('products/images', 'ProductController@uploadImages');
     Route::resource('categories', 'CategoryController');
 });
 
+Route::group([
+    'middleware' => ['auth:api','admin'],
+    'prefix' => 'admin'
+], function () {
+    Route::resource('products', 'ProductController');
+    Route::post('products/images', 'ProductController@uploadImages');
+    Route::resource('categories', 'CategoryController');
+
+    Route::resource('users', 'UserController');
+
+});

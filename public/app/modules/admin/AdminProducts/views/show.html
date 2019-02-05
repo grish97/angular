@@ -1,0 +1,16 @@
+<div class="card float-right w-75">
+    <h5 class="card-header">{{ product.name }} ({{ product.category.name}})</h5>
+    <div class="card-body">
+        <h5 class="card-title">{{ product.short_description }}</h5>
+        <img src="{{'/storage/products/'+ image.name}}" alt="" class="img-thumbnail" ng-repeat="image in product.images">
+        <p class="card-text">
+            {{ product.description }}
+        </p>
+        <p><strong>Price: </strong>{{ product.price }}$</p>
+        <p><strong>Created by: </strong>{{ product.user.name }}</p>
+        <p><strong>Create At: </strong>{{ product.created_at }}</p>
+        <a ui-sref="product_edit({slug : product.slug})"  class="btn mr-2"><i class="far fa-edit text-success"></i></a>
+        <a ui-sref="products_delete({slug : product.slug})" class="btn mr-2"><i class="far fa-trash-alt text-danger"></i></a>
+        <a ui-sref="adminProducts"  class="btn btn-warning">All products</a>
+    </div>
+</div>
